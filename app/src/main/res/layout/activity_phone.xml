@@ -8,25 +8,12 @@
     android:orientation="vertical"
     tools:context="com.zhuoxin.phonemanager.activity.PhoneActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/bluePrimaryColor"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="通讯大全"
-            android:textColor="#fff"
-            android:textSize="25dp"/>
-    </RelativeLayout>
+    <include layout="@layout/layout_actionbar"></include>
 
     <ListView
         android:id="@+id/ll_classlist"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:divider="@color/dividerColor"
         android:dividerHeight="1dp"
         ></ListView>

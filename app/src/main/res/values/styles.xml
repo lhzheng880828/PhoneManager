@@ -6,9 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>nnsdf
+    </style>
 
-    <style name="BlueTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+
+    <style name="BlueTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:statusBarColor">@color/darkBluePrimaryColor</item>
 

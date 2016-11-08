@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.db.DBManager;
@@ -33,7 +32,6 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(SplashActivity.this, "动画结束", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SplashActivity.this, PhoneActivity.class));
                 finish();
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,7 +24,7 @@ import com.zhuoxin.phonemanager.entity.TelnumberInfo;
 
 import java.util.List;
 
-public class PhoneNumberActivity extends Activity implements AdapterView.OnItemClickListener {
+public class PhoneNumberActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView ll_numberlist;
     List<TelnumberInfo> dataList;

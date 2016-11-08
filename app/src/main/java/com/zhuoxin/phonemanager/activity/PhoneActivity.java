@@ -3,6 +3,7 @@ package com.zhuoxin.phonemanager.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,7 +15,7 @@ import com.zhuoxin.phonemanager.entity.TelclassInfo;
 
 import java.util.List;
 
-public class PhoneActivity extends Activity implements AdapterView.OnItemClickListener {
+public class PhoneActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView ll_classlist;
     List<TelclassInfo> dataList;
 
@@ -36,6 +37,5 @@ public class PhoneActivity extends Activity implements AdapterView.OnItemClickLi
         Intent intent = new Intent(this, PhoneNumberActivity.class);
         intent.putExtra("idx", idx);
         startActivity(intent);
-        overridePendingTransition(R.anim.anim_activity_in,R.anim.anim_activity_out);
     }
 }
