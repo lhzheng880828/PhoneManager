@@ -33,8 +33,10 @@ public class PhoneActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String name = dataList.get(position).name;
         int idx = dataList.get(position).idx;
         Intent intent = new Intent(this, PhoneNumberActivity.class);
+        intent.putExtra("name",name);
         intent.putExtra("idx", idx);
         startActivity(intent);
     }
