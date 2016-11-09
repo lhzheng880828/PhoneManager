@@ -18,7 +18,7 @@
     <dimen name="shape_shadow">5dp</dimen>
 
     <!--ToggleButton的尺寸信息-->
-    <dimen name="togglebutton_height">20dp</dimen>
-    <dimen name="togglebutton_width">50dp</dimen>
+    <dimen name="togglebutton_height">24dp</dimen>
+    <dimen name="togglebutton_width">60dp</dimen>
     <dimen name="togglebutton_margin">30dp</dimen>
 </resources>
