@@ -3,6 +3,7 @@ package com.zhuoxin.phonemanager.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
@@ -25,12 +26,16 @@ public class MusicService extends Service {
 
         try {
             assetFileDescriptor = getAssets().openFd("Living Life Over.mp3");
-            mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
+            if (!mediaPlayer.isPlaying() ) {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 assetFileDescriptor.close();
             } catch (IOException e) {
@@ -42,7 +47,10 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        mediaPlayer.stop();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+
         super.onDestroy();
     }
 

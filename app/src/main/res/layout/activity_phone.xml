@@ -8,7 +8,10 @@
     android:orientation="vertical"
     tools:context="com.zhuoxin.phonemanager.activity.PhoneActivity">
 
-    <include layout="@layout/layout_actionbar"></include>
+    <com.zhuoxin.phonemanager.view.ActionBarView
+        android:id="@+id/layout_actionbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.zhuoxin.phonemanager.view.ActionBarView>
 
     <ListView
         android:id="@+id/ll_classlist"

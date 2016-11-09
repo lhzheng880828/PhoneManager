@@ -1,4 +1,4 @@
-package com.zhuoxin.phonemanager.adapter;
+package com.zhuoxin.phonemanager.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import java.util.List;
  */
 
 public abstract class MyBaseAdapter<T> extends BaseAdapter {
+    public LayoutInflater layoutInflater;
     List<T> dataList = new ArrayList<T>();
-    LayoutInflater layoutInflater;
     Context context;
 
     public MyBaseAdapter(Context context) {

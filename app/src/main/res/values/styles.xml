@@ -4,16 +4,25 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/darkBluePrimaryColor</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="BlueTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <item name="android:statusBarColor">@color/darkBluePrimaryColor</item>
-
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/darkBluePrimaryColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <!--Home界面的icons的style-->
+    <style name="HomeIconsSStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/item_margin</item>
+        <item name="android:textSize">@dimen/item_textsize</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
 
 </resources>

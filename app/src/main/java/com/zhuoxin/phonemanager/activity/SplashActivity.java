@@ -2,18 +2,17 @@ package com.zhuoxin.phonemanager.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.zhuoxin.phonemanager.R;
+import com.zhuoxin.phonemanager.base.BaseActivity;
 import com.zhuoxin.phonemanager.db.DBManager;
 
 import java.io.File;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     ImageView iv_logo;
 
@@ -51,7 +50,6 @@ public class SplashActivity extends AppCompatActivity {
         if (!DBManager.isExistsTeldbFile(this)) {
             String assetsPath = "commonnum.db";
             File sdCardFile = new File(getFilesDir().getAbsolutePath(), "commonnum.db");
-            Log.e("test", "~~~~~~~~~~~" + sdCardFile.getAbsolutePath());
             DBManager.copyAssetsFileToSDCardFile(this, assetsPath, sdCardFile);
         }
     }

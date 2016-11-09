@@ -6,6 +6,7 @@
     <!--ActionBar的尺寸信息-->
     <dimen name="actionbar_height">56dp</dimen>
     <dimen name="actionbar_textsize">20sp</dimen>
+    <dimen name="actionbar_imagesize">35dp</dimen>
 
     <!--ListView的尺寸信息-->
     <dimen name="item_height">60dp</dimen>
@@ -15,4 +16,9 @@
     <!--自定义shape的尺寸信息-->
     <dimen name="shape_radius">1dp</dimen>
     <dimen name="shape_shadow">5dp</dimen>
+
+    <!--ToggleButton的尺寸信息-->
+    <dimen name="togglebutton_height">20dp</dimen>
+    <dimen name="togglebutton_width">50dp</dimen>
+    <dimen name="togglebutton_margin">30dp</dimen>
 </resources>

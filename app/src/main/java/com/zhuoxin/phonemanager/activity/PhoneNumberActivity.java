@@ -11,40 +11,50 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.adapter.TelnumberAdapter;
+import com.zhuoxin.phonemanager.base.BaseActivity;
 import com.zhuoxin.phonemanager.db.DBManager;
 import com.zhuoxin.phonemanager.entity.TelnumberInfo;
 
 import java.util.List;
 
-public class PhoneNumberActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PhoneNumberActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    TextView tv_title;
+
     ListView ll_numberlist;
+
     List<TelnumberInfo> dataList;
+    String name;
+    String tableName;
+    TelnumberAdapter adapter;
     private String number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_number);
+        initView();
+        name = getIntent().getStringExtra("name");
+        initActionBar(name, true, false, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        ll_numberlist = (ListView) findViewById(R.id.ll_numberlist);
-        String name = getIntent().getStringExtra("name");
-        tv_title.setText(name);
-        String tableName = "table" + getIntent().getIntExtra("idx", 1);
-        TelnumberAdapter adapter = new TelnumberAdapter(this);
+    private void initView() {
+        tableName = "table" + getIntent().getIntExtra("idx", 1);
         dataList = DBManager.readTeldbNumberlist(this, tableName);
+        adapter = new TelnumberAdapter(this);
         adapter.setData(dataList);
+        ll_numberlist = (ListView) findViewById(R.id.ll_numberlist);
         ll_numberlist.setAdapter(adapter);
         ll_numberlist.setOnItemClickListener(this);
     }

@@ -1,10 +1,10 @@
 package com.zhuoxin.phonemanager.activity;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhuoxin.phonemanager.R;
+import com.zhuoxin.phonemanager.base.BaseActivity;
 import com.zhuoxin.phonemanager.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuideActivity extends AppCompatActivity {
+public class GuideActivity extends BaseActivity {
 
     //找到对应的控件
     ViewPager vp_guide;
@@ -32,8 +33,16 @@ public class GuideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        initView();
-        startMusicService();
+        SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+        boolean isFirstRun = sp.getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            initView();
+            startService(MusicService.class);
+        } else {
+            startActivity(HomeActivity.class);
+            finish();
+        }
+
 
     }
 
@@ -48,8 +57,8 @@ public class GuideActivity extends AppCompatActivity {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GuideActivity.this, PhoneActivity.class);
-                startActivity(intent);
+                getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
+                startActivity(HomeActivity.class);
                 finish();
             }
         });
@@ -104,15 +113,10 @@ public class GuideActivity extends AppCompatActivity {
         });
     }
 
-    private void startMusicService() {
-        Intent intent = new Intent(GuideActivity.this, MusicService.class);
-        startService(intent);
-    }
 
     @Override
     public void finish() {
-        Intent intent = new Intent(GuideActivity.this, MusicService.class);
-        stopService(intent);
+        stopService(MusicService.class);
         super.finish();
     }
 

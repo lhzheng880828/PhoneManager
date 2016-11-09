@@ -7,6 +7,14 @@
                 android:translationZ="@dimen/shape_shadow">
 
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/actionbar_imagesize"
+        android:layout_height="@dimen/actionbar_imagesize"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_margin"
+        android:src="@drawable/actionbar_back"/>
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -16,5 +24,13 @@
         android:textColor="#fff"
         android:textSize="@dimen/actionbar_textsize"/>
 
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="@dimen/actionbar_imagesize"
+        android:layout_height="@dimen/actionbar_imagesize"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:src="@drawable/actionbar_menu"/>
 
 </RelativeLayout>

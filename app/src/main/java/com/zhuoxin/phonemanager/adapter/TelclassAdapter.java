@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zhuoxin.phonemanager.R;
+import com.zhuoxin.phonemanager.base.MyBaseAdapter;
 import com.zhuoxin.phonemanager.entity.TelclassInfo;
 
 /**
