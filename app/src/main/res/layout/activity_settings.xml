@@ -28,6 +28,7 @@
             />
 
         <ToggleButton
+            android:id="@+id/tb_start"
             android:layout_width="@dimen/togglebutton_width"
             android:layout_height="@dimen/togglebutton_height"
             android:layout_gravity="center_vertical|end"
@@ -52,6 +53,7 @@
             />
 
         <ToggleButton
+            android:id="@+id/tb_notification"
             android:layout_width="@dimen/togglebutton_width"
             android:layout_height="@dimen/togglebutton_height"
             android:layout_gravity="center_vertical|end"
@@ -76,6 +78,7 @@
             />
 
         <ToggleButton
+            android:id="@+id/tb_push"
             android:layout_width="@dimen/togglebutton_width"
             android:layout_height="@dimen/togglebutton_height"
             android:layout_gravity="center_vertical|end"
@@ -100,6 +103,7 @@
             />
 
         <ImageView
+            android:id="@+id/iv_help"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|end"
@@ -123,6 +127,7 @@
             />
 
         <ImageView
+            android:id="@+id/iv_about"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|end"

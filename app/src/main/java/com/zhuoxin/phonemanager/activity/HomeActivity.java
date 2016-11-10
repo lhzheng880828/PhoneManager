@@ -10,6 +10,7 @@ import com.zhuoxin.phonemanager.base.BaseActivity;
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     TextView tv_telnumber;
+    TextView tv_software;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private void initView() {
         tv_telnumber = (TextView) findViewById(R.id.tv_telnumber);
         tv_telnumber.setOnClickListener(this);
+        tv_software = (TextView) findViewById(R.id.tv_software);
+        tv_software.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +37,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_telnumber:
                 startActivity(PhoneActivity.class);
+                break;
+            case R.id.tv_software:
+                startActivity(SoftwareActivity.class);
                 break;
         }
     }
