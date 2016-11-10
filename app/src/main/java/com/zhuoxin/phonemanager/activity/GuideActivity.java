@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.base.BaseActivity;
+import com.zhuoxin.phonemanager.db.DBManager;
 import com.zhuoxin.phonemanager.service.MusicService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +59,11 @@ public class GuideActivity extends BaseActivity {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!DBManager.isExistsTeldbFile(GuideActivity.this)) {
+                    String assetsPath = "commonnum.db";
+                    File sdCardFile = new File(getFilesDir().getAbsolutePath(), "commonnum.db");
+                    DBManager.copyAssetsFileToSDCardFile(GuideActivity.this, assetsPath, sdCardFile);
+                }
                 getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
                 startActivity(HomeActivity.class);
                 finish();
