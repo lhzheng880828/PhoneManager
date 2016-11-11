@@ -4,17 +4,18 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.adapter.SoftwareAdapter;
+import com.zhuoxin.phonemanager.base.BaseActivity;
 import com.zhuoxin.phonemanager.entity.SoftwareInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SoftwareActivity extends AppCompatActivity {
+public class SoftwareActivity extends BaseActivity {
 
     List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
     ListView ll_software;
@@ -28,9 +29,9 @@ public class SoftwareActivity extends AppCompatActivity {
         for (ApplicationInfo info : applicationInfolist) {
             String name = (String) getPackageManager().getApplicationLabel(info);
             String type = "";
-            if((info.flags & ApplicationInfo.FLAG_SYSTEM) >0 ){
+            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) > 0) {
                 type = "系统";
-            }else{
+            } else {
                 type = "第三方";
             }
 
@@ -43,6 +44,13 @@ public class SoftwareActivity extends AppCompatActivity {
         SoftwareAdapter adapter = new SoftwareAdapter(this);
         adapter.setData(softwareInfoList);
         ll_software.setAdapter(adapter);
+
+        initActionBar("手机软件", true, false, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
