@@ -28,15 +28,21 @@ public class SoftwareActivity extends BaseActivity {
         List<ApplicationInfo> applicationInfolist = getPackageManager().getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES);
         for (ApplicationInfo info : applicationInfolist) {
             String name = (String) getPackageManager().getApplicationLabel(info);
-            String type = "";
+            boolean type = true;
             if ((info.flags & ApplicationInfo.FLAG_SYSTEM) > 0) {
-                type = "系统";
+                type = true;
             } else {
-                type = "第三方";
+                type = false;
             }
-
+            String packageName = info.packageName;
+            String version = "";
+            try {
+                version = getPackageManager().getPackageInfo(packageName, 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
             Drawable drawable = info.loadIcon(getPackageManager());
-            SoftwareInfo softwareInfo = new SoftwareInfo(drawable, name, type);
+            SoftwareInfo softwareInfo = new SoftwareInfo(false, drawable, name, type, packageName, version);
             softwareInfoList.add(softwareInfo);
         }
         //ll

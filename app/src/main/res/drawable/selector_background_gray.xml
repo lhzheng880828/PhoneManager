@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/shape_background_pressed_gray" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/shape_background_defaut_gray"></item>
+</selector>

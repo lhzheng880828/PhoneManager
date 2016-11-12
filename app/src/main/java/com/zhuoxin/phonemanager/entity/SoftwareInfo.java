@@ -7,13 +7,19 @@ import android.graphics.drawable.Drawable;
  */
 
 public class SoftwareInfo {
+    public boolean hasDelete;
     public Drawable appIcon;
     public String appName;
-    public String appType;
+    public boolean isSystem;
+    public String packageName;
+    public String appVersion;
 
-    public SoftwareInfo(Drawable appIcon, String appName, String appType) {
+    public SoftwareInfo(boolean hasDelete, Drawable appIcon, String appName, boolean isSystem, String packageName, String appVersion) {
+        this.hasDelete = hasDelete;
         this.appIcon = appIcon;
         this.appName = appName;
-        this.appType = appType;
+        this.isSystem = isSystem;
+        this.packageName = packageName;
+        this.appVersion = appVersion;
     }
 }
