@@ -39,7 +39,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(PhoneActivity.class);
                 break;
             case R.id.tv_software:
-                startActivity(SoftwareActivity.class);
+                startActivity(SoftManagerActivity.class);
                 break;
         }
     }

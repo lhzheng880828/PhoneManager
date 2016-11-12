@@ -38,6 +38,8 @@
         </activity>
         <activity android:name=".activity.SoftwareActivity">
         </activity>
+        <activity android:name=".activity.SoftManagerActivity">
+        </activity>
     </application>
 
 </manifest>

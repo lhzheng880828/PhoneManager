@@ -16,4 +16,6 @@
     <color name="dividerColor">#BDBDBD</color>
     <color name="textColor">#212121</color>
 
+    <color name="piechartColor">#FF5722</color>
+    <color name="piechartBackgroundColor">#FFC107</color>
 </resources>

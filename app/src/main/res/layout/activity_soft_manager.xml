@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_soft_manager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.zhuoxin.phonemanager.activity.SoftManagerActivity">
+
+    <com.zhuoxin.phonemanager.view.ActionBarView
+        android:id="@+id/layout_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.zhuoxin.phonemanager.view.ActionBarView>
+
+    <include layout="@layout/layout_soft_manager"></include>
+
+    <ProgressBar
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_margin="15dp"
+        android:max="360"
+        android:progress="35"/>
+</LinearLayout>

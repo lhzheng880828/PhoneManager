@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:piechart="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/item_margin">
+
+    <com.zhuoxin.phonemanager.view.PiechartView
+        android:id="@+id/pv_softmgr"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        piechart:piechartBackgroundColor="@color/piechartBackgroundColor"
+        piechart:piechartColor="@color/piechartColor"/>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="45dp"
+        android:layout_toEndOf="@id/pv_softmgr">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_color"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@color/piechartColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@id/iv_color"
+                android:text="剩余存储空间"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/iv_backgroundColor"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@color/piechartBackgroundColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@id/iv_backgroundColor"
+                android:text="已用存储空间"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
