@@ -3,14 +3,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_background_gray"
-                android:paddingStart="@dimen/item_margin"
-                android:paddingEnd="@dimen/item_margin"
-                android:paddingTop="5dp"
+                android:clickable="true"
                 android:paddingBottom="5dp"
+                android:paddingEnd="@dimen/item_margin"
+                android:paddingStart="@dimen/item_margin"
+                android:paddingTop="5dp"
     >
 
     <CheckBox
-        android:id="@+id/cb_app"
+        android:id="@+id/cb_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -22,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/item_margin"
-        android:layout_toEndOf="@+id/cb_app"
+        android:layout_toEndOf="@id/cb_delete"
         android:src="@mipmap/ic_launcher"/>
 
     <LinearLayout

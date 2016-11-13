@@ -16,6 +16,8 @@ import com.zhuoxin.phonemanager.entity.SoftwareInfo;
  */
 
 public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
+
+
     public SoftwareAdapter(Context context) {
         super(context);
     }
@@ -26,7 +28,7 @@ public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.item_software, null);
             holder = new ViewHolder();
-            holder.cb_app = (CheckBox) convertView.findViewById(R.id.cb_app);
+            holder.cb_delete = (CheckBox) convertView.findViewById(R.id.cb_delete);
             holder.iv_appicon = (ImageView) convertView.findViewById(R.id.iv_appicon);
             holder.tv_appname = (TextView) convertView.findViewById(R.id.tv_appname);
             holder.tv_appversion = (TextView) convertView.findViewById(R.id.tv_appversion);
@@ -36,9 +38,22 @@ public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
             holder = (ViewHolder) convertView.getTag();
         }
 
+
         //设置控件的内容
-        SoftwareInfo info = getItem(position);
-        holder.cb_app.setChecked(info.hasDelete);
+        final SoftwareInfo info = getItem(position);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                info.hasDelete = !info.hasDelete;
+            }
+        };
+        if (info.isSystem) {
+            holder.cb_delete.setClickable(false);
+        } else {
+            holder.cb_delete.setChecked(info.hasDelete);
+            holder.cb_delete.setOnClickListener(listener);
+        }
+
         if (info.appIcon != null) {
             holder.iv_appicon.setImageDrawable(info.appIcon);
         }
@@ -50,7 +65,7 @@ public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
     }
 
     private static class ViewHolder {
-        CheckBox cb_app;
+        CheckBox cb_delete;
         ImageView iv_appicon;
         TextView tv_appname;
         TextView tv_appversion;

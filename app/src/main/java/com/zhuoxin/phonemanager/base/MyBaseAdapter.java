@@ -26,6 +26,9 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
     public void setData(List<T> dataList) {
         this.dataList.addAll(dataList);
     }
+    public List<T> getData(){
+        return dataList;
+    }
 
     @Override
     public int getCount() {
