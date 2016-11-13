@@ -48,6 +48,7 @@ public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
             }
         };
         if (info.isSystem) {
+            holder.cb_delete.setChecked(false);
             holder.cb_delete.setClickable(false);
         } else {
             holder.cb_delete.setChecked(info.hasDelete);

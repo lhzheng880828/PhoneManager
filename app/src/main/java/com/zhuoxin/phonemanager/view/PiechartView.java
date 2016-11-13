@@ -61,6 +61,7 @@ public class PiechartView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
+        paint.setAntiAlias(true);
         paint.setColor(backgroundColor);
         RectF rectF = new RectF(0, 0, getWidth(), getHeight());
         canvas.drawArc(rectF, -90, 360, true, paint);

@@ -23,11 +23,13 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<T> dataList) {
-        this.dataList.addAll(dataList);
-    }
-    public List<T> getData(){
+    public List<T> getData() {
         return dataList;
+    }
+
+    public void setData(List<T> dataList) {
+        this.dataList.clear();
+        this.dataList.addAll(dataList);
     }
 
     @Override

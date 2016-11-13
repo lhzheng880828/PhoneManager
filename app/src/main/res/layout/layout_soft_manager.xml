@@ -37,8 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/iv_color"
-                android:text="剩余存储空间"/>
+                android:text="已用存储空间"/>
         </LinearLayout>
 
 
@@ -58,8 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/iv_backgroundColor"
-                android:text="已用存储空间"/>
+                android:text="剩余存储空间"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
