@@ -13,6 +13,5 @@
         android:layout_height="wrap_content"
         ></com.zhuoxin.phonemanager.view.ActionBarView>
 
-    <include layout="@layout/layout_home_icons"
-        ></include>
+    <include layout="@layout/layout_home_icons"></include>
 </FrameLayout>

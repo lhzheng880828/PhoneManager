@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context="com.zhuoxin.phonemanager.activity.SoftManagerActivity">
 
     <com.zhuoxin.phonemanager.view.ActionBarView
@@ -17,10 +16,98 @@
     <include layout="@layout/layout_soft_manager"></include>
 
     <ProgressBar
+        android:id="@+id/pb_phonespace"
         style="?android:progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_margin="15dp"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
         android:max="360"
-        android:progress="35"/>
+        android:progress="35"
+        android:progressDrawable="@drawable/progressbar_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:paddingEnd="@dimen/item_margin"
+        android:text="可用：10G/64G"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_gray"
+        android:clickable="true"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginStart="@dimen/item_margin"
+            android:gravity="start|center_vertical"
+            android:text="所有软件"
+            android:textSize="@dimen/item_textsize"/>
+
+        <ImageView
+            android:layout_width="@dimen/item_textsize"
+            android:layout_height="@dimen/item_textsize"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:src="@drawable/item_arrow_right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_system"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_gray"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginStart="@dimen/item_margin"
+            android:gravity="start|center_vertical"
+            android:text="系统软件"
+            android:textSize="@dimen/item_textsize"/>
+
+        <ImageView
+            android:layout_width="@dimen/item_textsize"
+            android:layout_height="@dimen/item_textsize"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:src="@drawable/item_arrow_right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_gray"
+        android:clickable="true"
+        >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginStart="@dimen/item_margin"
+            android:gravity="start|center_vertical"
+            android:text="用户软件"
+            android:textSize="@dimen/item_textsize"/>
+
+        <ImageView
+            android:layout_width="@dimen/item_textsize"
+            android:layout_height="@dimen/item_textsize"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:src="@drawable/item_arrow_right"/>
+    </RelativeLayout>
 </LinearLayout>
+

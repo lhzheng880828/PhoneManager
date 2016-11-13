@@ -24,15 +24,26 @@ public class SoftwareActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_software);
+        initActionBar("手机软件", true, false, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        initView();
+    }
+
+    private void initView() {
+        String appType = getIntent().getBundleExtra("bundle").getString("appType", "all");
         //数据
         List<ApplicationInfo> applicationInfolist = getPackageManager().getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES);
         for (ApplicationInfo info : applicationInfolist) {
             String name = (String) getPackageManager().getApplicationLabel(info);
-            boolean type = true;
+            boolean isSystem = true;
             if ((info.flags & ApplicationInfo.FLAG_SYSTEM) > 0) {
-                type = true;
+                isSystem = true;
             } else {
-                type = false;
+                isSystem = false;
             }
             String packageName = info.packageName;
             String version = "";
@@ -42,22 +53,24 @@ public class SoftwareActivity extends BaseActivity {
                 e.printStackTrace();
             }
             Drawable drawable = info.loadIcon(getPackageManager());
-            SoftwareInfo softwareInfo = new SoftwareInfo(false, drawable, name, type, packageName, version);
-            softwareInfoList.add(softwareInfo);
+            SoftwareInfo softwareInfo = new SoftwareInfo(false, drawable, name, isSystem, packageName, version);
+            if (appType.equals("system")) {
+                if (softwareInfo.isSystem) {
+                    softwareInfoList.add(softwareInfo);
+                }
+            } else if (appType.equals("user")) {
+                if (!softwareInfo.isSystem) {
+                    softwareInfoList.add(softwareInfo);
+                }
+            } else {
+                softwareInfoList.add(softwareInfo);
+            }
         }
         //ll
         ll_software = (ListView) findViewById(R.id.ll_software);
         SoftwareAdapter adapter = new SoftwareAdapter(this);
         adapter.setData(softwareInfoList);
         ll_software.setAdapter(adapter);
-
-        initActionBar("手机软件", true, false, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
-
 
 }

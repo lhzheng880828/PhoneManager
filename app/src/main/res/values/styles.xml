@@ -16,13 +16,19 @@
     </style>
     <!--Home界面的icons的style-->
     <style name="HomeIconsSStyle">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:contentDescription">主页面 TextView的Style</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/item_margin</item>
-        <item name="android:textSize">@dimen/item_textsize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/selector_background_gray</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:singleLine">true</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">hitHomeitem</item>
     </style>
 
 </resources>

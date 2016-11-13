@@ -6,11 +6,13 @@
                 android:padding="@dimen/item_margin">
 
     <com.zhuoxin.phonemanager.view.PiechartView
-        android:id="@+id/pv_softmgr"
+        android:id="@+id/pv_phonespace"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginStart="@dimen/item_margin"
         piechart:piechartBackgroundColor="@color/piechartBackgroundColor"
-        piechart:piechartColor="@color/piechartColor"/>
+        piechart:piechartColor="@color/piechartColor"
+        piechart:piechartProportion="240"/>
 
     <RelativeLayout
 
@@ -18,7 +20,7 @@
         android:layout_height="@dimen/item_height"
         android:layout_centerVertical="true"
         android:layout_marginStart="45dp"
-        android:layout_toEndOf="@id/pv_softmgr">
+        android:layout_toEndOf="@id/pv_phonespace">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +62,4 @@
                 android:text="已用存储空间"/>
         </LinearLayout>
     </RelativeLayout>
-
-
 </RelativeLayout>

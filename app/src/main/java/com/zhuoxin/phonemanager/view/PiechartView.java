@@ -11,12 +11,16 @@ import android.view.View;
 
 import com.zhuoxin.phonemanager.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by YoungHong on 2016/11/13.
  */
 
 public class PiechartView extends View {
-    int proportion = 35;
+    int startAngle = 0;
+    int endAngle = 35;
     int backgroundColor = Color.DKGRAY;
     int color = Color.BLUE;
 
@@ -30,7 +34,7 @@ public class PiechartView extends View {
             int attrName = typedArray.getIndex(i);
             switch (attrName) {
                 case R.styleable.PiechartView_piechartProportion:
-                    proportion = typedArray.getInt(attrName, 0);
+                    endAngle = typedArray.getInt(attrName, 0);
                     break;
                 case R.styleable.PiechartView_piechartBackgroundColor:
                     backgroundColor = typedArray.getColor(attrName, Color.DKGRAY);
@@ -61,6 +65,26 @@ public class PiechartView extends View {
         RectF rectF = new RectF(0, 0, getWidth(), getHeight());
         canvas.drawArc(rectF, -90, 360, true, paint);
         paint.setColor(color);
-        canvas.drawArc(rectF, -90, proportion, true, paint);
+        canvas.drawArc(rectF, -90 + startAngle, endAngle, true, paint);
+    }
+
+    public void drawPiechart(final int start, final int end) {
+        startAngle = start;
+        endAngle = start;
+        final Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                //控制结束的角度，每次+4度。如果到结尾，则直接赋值
+                endAngle += 4;
+                if (endAngle >= end) {
+                    endAngle = end;
+                    postInvalidate();
+                    timer.cancel();
+                }
+                postInvalidate();
+            }
+        };
+        timer.schedule(timerTask, 200, 40);
     }
 }
