@@ -31,7 +31,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, PhoneActivity.class));
+                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                 finish();
 
             }

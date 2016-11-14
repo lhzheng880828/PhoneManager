@@ -65,8 +65,6 @@ public class SoftManagerActivity extends BaseActivity implements View.OnClickLis
         }else{
             initProgress();
         }
-
-
     }
 
     @Override

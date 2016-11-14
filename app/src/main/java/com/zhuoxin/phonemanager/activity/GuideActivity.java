@@ -30,19 +30,29 @@ public class GuideActivity extends BaseActivity {
     List<View> viewList = new ArrayList<View>();
     int redCirclePadding;
     float scaleLength;
+    boolean isFromSettings = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
-        boolean isFirstRun = sp.getBoolean("isFirstRun", true);
-        if (isFirstRun) {
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        if (bundle != null) {
+            isFromSettings = bundle.getBoolean("isFromSettings", false);
+        }
+        if (!isFromSettings) {
+            SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+            boolean isFirstRun = sp.getBoolean("isFirstRun", true);
+            if (isFirstRun) {
+                initView();
+                startService(MusicService.class);
+            } else {
+                startActivity(SplashActivity.class);
+                finish();
+            }
+        } else {
             initView();
             startService(MusicService.class);
-        } else {
-            startActivity(HomeActivity.class);
-            finish();
         }
 
 
@@ -65,7 +75,9 @@ public class GuideActivity extends BaseActivity {
                     DBManager.copyAssetsFileToSDCardFile(GuideActivity.this, assetsPath, sdCardFile);
                 }
                 getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
-                startActivity(HomeActivity.class);
+                if (!isFromSettings) {
+                    startActivity(HomeActivity.class);
+                }
                 finish();
             }
         });
