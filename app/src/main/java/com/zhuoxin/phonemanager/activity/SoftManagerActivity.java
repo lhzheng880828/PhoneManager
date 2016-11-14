@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
@@ -54,12 +55,17 @@ public class SoftManagerActivity extends BaseActivity implements View.OnClickLis
         rl_all.setOnClickListener(this);
         rl_system.setOnClickListener(this);
         rl_user.setOnClickListener(this);
-        int permission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permission == PackageManager.PERMISSION_DENIED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-        } else {
+        if(Build.VERSION.SDK_INT>=23){
+            int permission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            if (permission == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+            } else {
+                initProgress();
+            }
+        }else{
             initProgress();
         }
+
 
     }
 

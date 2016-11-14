@@ -1,6 +1,7 @@
 package com.zhuoxin.phonemanager.view;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +25,9 @@ public class ActionBarView extends RelativeLayout {
         //填充布局到当前ActionBarView
         inflate(context, R.layout.layout_actionbar, this);
         this.setBackgroundResource(R.drawable.shape_blue);
-        this.setElevation(30);
+        if(Build.VERSION.SDK_INT>=21){
+            this.setElevation(30);
+        }
         //初始化控件
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_menu = (ImageView) findViewById(R.id.iv_menu);
