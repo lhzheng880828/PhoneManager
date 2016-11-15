@@ -17,6 +17,7 @@ import com.zhuoxin.phonemanager.entity.SoftwareInfo;
 
 public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
 
+    public boolean isFlying = false;
 
     public SoftwareAdapter(Context context) {
         super(context);
@@ -55,8 +56,10 @@ public class SoftwareAdapter extends MyBaseAdapter<SoftwareInfo> {
             holder.cb_delete.setOnClickListener(listener);
         }
 
-        if (info.appIcon != null) {
+        if (info.appIcon != null && !isFlying) {
             holder.iv_appicon.setImageDrawable(info.appIcon);
+        }else{
+            holder.iv_appicon.setImageResource(R.mipmap.ic_launcher);
         }
         holder.tv_appname.setText(info.appName);
         holder.tv_appversion.setText(info.appVersion);

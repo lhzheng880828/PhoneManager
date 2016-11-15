@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -28,7 +29,7 @@ public class SoftwareActivity extends BaseActivity implements View.OnClickListen
 
     List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
     ProgressBar pb_software;
-    ListView ll_software;
+    ListView lv_software;
     CheckBox cb_deleteAll;
     Button btn_delete;
     SoftwareAdapter adapter;
@@ -58,10 +59,27 @@ public class SoftwareActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         //初始化控件
         pb_software = (ProgressBar) findViewById(R.id.pb_software);
-        ll_software = (ListView) findViewById(R.id.ll_software);
+        lv_software = (ListView) findViewById(R.id.lv_software);
         cb_deleteAll = (CheckBox) findViewById(R.id.cb_deleteAll);
         btn_delete = (Button) findViewById(R.id.btn_delete);
+
         appType = getIntent().getBundleExtra("bundle").getString("appType", "all");
+        lv_software.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == SCROLL_STATE_FLING) {
+                    adapter.isFlying = true;
+                } else if(scrollState == SCROLL_STATE_IDLE){
+                    adapter.isFlying = false;
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
         cb_deleteAll.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
         asyncLoadData();
@@ -70,7 +88,7 @@ public class SoftwareActivity extends BaseActivity implements View.OnClickListen
 
     private void asyncLoadData() {
         pb_software.setVisibility(View.VISIBLE);
-        ll_software.setVisibility(View.INVISIBLE);
+        lv_software.setVisibility(View.INVISIBLE);
         softwareInfoList.clear();
         new Thread(new Runnable() {
             @Override
@@ -114,8 +132,8 @@ public class SoftwareActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void run() {
                         pb_software.setVisibility(View.GONE);
-                        ll_software.setVisibility(View.VISIBLE);
-                        ll_software.setAdapter(adapter);
+                        lv_software.setVisibility(View.VISIBLE);
+                        lv_software.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
                 });
