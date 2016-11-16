@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.zhuoxin.phonemanager.base.BaseActivity;
 
 public class SettingsActivity extends BaseActivity implements View.OnClickListener {
 
+    boolean startWhenBootComplete = false;
     ToggleButton tb_start;
     ToggleButton tb_notification;
     ToggleButton tb_push;
@@ -45,6 +47,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         tb_push.setOnClickListener(this);
         iv_about.setOnClickListener(this);
         iv_help.setOnClickListener(this);
+        startWhenBootComplete = getSharedPreferences("config", MODE_PRIVATE).getBoolean("startWhenBootComplete", false);
+        tb_start.setChecked(startWhenBootComplete);
     }
 
     @Override
@@ -55,17 +59,25 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("startWhenBootComplete", tb_start.isChecked()).commit();
                 break;
             case R.id.tb_notification:
-                Intent resultIntent = new Intent(this, HomeActivity.class);
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(this)
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle("My notification")
-                                .setContentText("Hello World!")
-                                .setContentIntent(resultPendingIntent)
-                                .setAutoCancel(true);
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                notificationManager.notify(0, mBuilder.build());
+                if (tb_notification.isChecked()) {
+                    Intent resultIntent = new Intent(this, HomeActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.item_arrow_right))
+                                    .setContentTitle("手机管家")
+                                    .setContentText("进入Home界面")
+                                    .setContentIntent(resultPendingIntent)
+                                    .setAutoCancel(true);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.notify(0, mBuilder.build());
+
+                } else {
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.cancel(0);
+                }
+
                 break;
             case R.id.tb_push:
                 Toast.makeText(this, "该功能随后上线", Toast.LENGTH_SHORT).show();
@@ -76,7 +88,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
             case R.id.iv_help:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("isFromSettings", true);
-                startActivity(GuideActivity.class,bundle);
+                startActivity(GuideActivity.class, bundle);
                 break;
         }
     }
