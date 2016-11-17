@@ -38,6 +38,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:max="100"
         android:progressDrawable="@drawable/progressbar_horizontal"/>
 
     <TextView
@@ -48,16 +49,6 @@
         android:gravity="end"
         android:text="剩余内存：2.11G/2.63G"/>
 
-    <Button
-        android:id="@+id/btn_rocket_clear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/item_margin"
-        android:layout_marginStart="@dimen/item_margin"
-        android:background="@drawable/selector_button_blue"
-        android:text="一键清理"
-        android:textColor="#fff"
-        android:textSize="@dimen/item_textsize"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -76,26 +67,16 @@
             android:layout_height="match_parent"></ListView>
     </FrameLayout>
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/btn_rocket_shift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_margin="7dp"
+        android:background="@drawable/selector_button_blue"
+        android:text="一键清理进程"
+        android:textColor="#fff"
+        android:textSize="@dimen/item_textsize"/>
 
-        <CheckBox
-            android:id="@+id/cb_rocket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
-
-        <Button
-            android:id="@+id/btn_rocket_shift"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="7dp"
-            android:background="@drawable/selector_button_blue"
-            android:text="显示系统进程"
-            android:textColor="#fff"
-            android:textSize="@dimen/item_textsize"/>
-    </LinearLayout>
 
 </LinearLayout>
