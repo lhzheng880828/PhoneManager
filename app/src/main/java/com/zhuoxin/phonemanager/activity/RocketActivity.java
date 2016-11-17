@@ -47,8 +47,6 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-
-            Toast.makeText(RocketActivity.this, runningAppProcessInfos.size() + "", Toast.LENGTH_LONG).show();
             adapter.setData((List<ActivityManager.RunningAppProcessInfo>) msg.obj);
             adapter.notifyDataSetChanged();
             pb_rocket_loading.setVisibility(View.GONE);
@@ -102,6 +100,9 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
         activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
     }
 
+    /**
+     * 获取运行空间
+     */
     private void getRunMemory() {
         ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
