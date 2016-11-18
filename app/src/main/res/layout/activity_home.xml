@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zhuoxin.phonemanager.activity.HomeActivity">
 
     <com.zhuoxin.phonemanager.view.ActionBarView
@@ -13,5 +14,32 @@
         android:layout_height="wrap_content"
         ></com.zhuoxin.phonemanager.view.ActionBarView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.zhuoxin.phonemanager.view.CleanCircleView
+            android:id="@+id/ccv_home_clean"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/iv_home_clean"
+            android:layout_width="166dp"
+            android:layout_height="166dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/selector_clean_circle"/>
+
+        <TextView
+            android:id="@+id/tv_home_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="100%"
+            android:textSize="35sp"/>
+    </RelativeLayout>
+
     <include layout="@layout/layout_home_icons"></include>
-</FrameLayout>
+</LinearLayout>
