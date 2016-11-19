@@ -5,19 +5,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
-import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.adapter.ProgressAdapter;
 import com.zhuoxin.phonemanager.base.BaseActivity;
-import com.zhuoxin.phonemanager.process.ProcessManager;
+import com.zhuoxin.phonemanager.utils.RAMUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,29 +101,15 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
      * 获取运行空间
      */
     private void getRunMemory() {
-        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        am.getMemoryInfo(memoryInfo);
-        long total = memoryInfo.totalMem;
-        long free = memoryInfo.availMem;
-        long used = total - free;
-        pb_runspace.setProgress((int) (100.0 * used / total));
-        String totalSpace = Formatter.formatFileSize(this, total);
-        String freeSpace = Formatter.formatFileSize(this, free);
-        tv_runspace.setText("剩余运行内存：" + freeSpace + "/" + totalSpace);
+        pb_runspace.setProgress(RAMUtil.getUsedPercent(this));
+        tv_runspace.setText("剩余运行内存：" + RAMUtil.getAvailableMemoryStr(this) + "/" + RAMUtil.getTotalMemoryStr(this));
     }
 
     private void asyncLoadProgress() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<ActivityManager.RunningAppProcessInfo> temp = new ArrayList<ActivityManager.RunningAppProcessInfo>();
-                List<ActivityManager.RunningAppProcessInfo> infos = ProcessManager.getRunningAppProcessInfo(RocketActivity.this);
-                for (ActivityManager.RunningAppProcessInfo i : infos) {
-                    if (!i.processName.contains("android")) {
-                        temp.add(i);
-                    }
-                }
+                List<ActivityManager.RunningAppProcessInfo> temp = RAMUtil.getRunningProcess(RocketActivity.this);
                 Message msg = handler.obtainMessage();
                 msg.what = MSG_WHAT;
                 msg.obj = temp;
@@ -141,15 +124,7 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
         int id = v.getId();
         switch (id) {
             case R.id.btn_rocket_shift:
-                List<ActivityManager.RunningAppProcessInfo> clearList = adapter.getData();
-                for (ActivityManager.RunningAppProcessInfo info : clearList) {
-                    if (!info.processName.equals(getPackageName())) {
-                        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);//获得获得管理器
-                        am.killBackgroundProcesses(info.processName);//通过包名杀死关联进程
-                        //Process.killProcess(info.pid);
-                    }
-
-                }
+                RAMUtil.cleanRunningProcess(this, getPackageName());
                 asyncLoadProgress();
                 getRunMemory();
                 break;

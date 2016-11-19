@@ -1,6 +1,5 @@
 package com.zhuoxin.phonemanager.activity;
 
-import android.app.ActivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +7,7 @@ import android.widget.TextView;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.base.BaseActivity;
+import com.zhuoxin.phonemanager.utils.RAMUtil;
 import com.zhuoxin.phonemanager.view.CleanCircleView;
 
 /**
@@ -32,6 +32,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_home);
         initActionBar("手机管家", false, true, this);
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getRunningMemory();
     }
 
@@ -61,6 +66,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         switch (id) {
             case R.id.iv_home_clean:
             case R.id.tv_home_clean:
+                RAMUtil.cleanRunningProcess(this, getPackageName());
                 getRunningMemory();
                 break;
             case R.id.iv_menu:
@@ -79,14 +85,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void getRunningMemory() {
-        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        am.getMemoryInfo(memoryInfo);
-        long total = memoryInfo.totalMem;
-        long free = memoryInfo.availMem;
-        long used = total - free;
         //获取当前运行控件所占百分比
-        int process = (int) (100.0 * used / total);
+        int process = RAMUtil.getUsedPercent(this);
         ccv_home_clean.setAngle((int) (3.6 * process), 6);
         tv_home_clean.setText(process + "%");
     }
