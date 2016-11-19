@@ -25,6 +25,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_telnumber;
     TextView tv_software;
     TextView tv_rocket;
+    TextView tv_phone ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         tv_software.setOnClickListener(this);
         tv_rocket = (TextView) findViewById(R.id.tv_rocket);
         tv_rocket.setOnClickListener(this);
+        tv_phone = (TextView) findViewById(R.id.tv_phone);
+        tv_phone.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +83,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_rocket:
                 startActivity(RocketActivity.class);
+                break;
+            case R.id.tv_phone:
+                startActivity(PhoneStateActivity.class);
                 break;
         }
     }

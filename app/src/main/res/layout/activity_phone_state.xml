@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_phone_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zhuoxin.phonemanager.activity.PhoneStateActivity">
+
+    <com.zhuoxin.phonemanager.view.ActionBarView
+        android:id="@+id/layout_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.zhuoxin.phonemanager.view.ActionBarView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="horizontal"
+        android:padding="30dp">
+
+        <ProgressBar
+            android:id="@+id/pb_phonestate_battery"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="30"
+            android:progressDrawable="@drawable/progressbar_horizontal"/>
+
+        <View
+            android:id="@+id/v_phonestate_battery"
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/piechartBackgroundColor"></View>
+
+        <TextView
+            android:id="@+id/tv_phonestate_battery"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="30%"
+            android:textSize="@dimen/item_textsize"/>
+    </LinearLayout>
+</LinearLayout>
