@@ -8,10 +8,5 @@ import android.os.BatteryManager;
  */
 
 public class PhoneStateUtil {
-    public static int getBatteryPercent(Context context) {
 
-        BatteryManager batteryManager = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
-
-        return 1;
-    }
 }
