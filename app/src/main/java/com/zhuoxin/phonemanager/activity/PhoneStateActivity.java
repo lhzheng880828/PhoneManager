@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.base.BaseActivity;
-import com.zhuoxin.phonemanager.utils.RAMUtil;
+import com.zhuoxin.phonemanager.biz.MemoryManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -125,14 +125,14 @@ public class PhoneStateActivity extends BaseActivity implements View.OnClickList
         tv_cputype.setText("CPU型号：" + getCpuName());
         tv_cpucore.setText("CPU核心数：" + getCpuCount());
         //ram信息
-        tv_totalram.setText("全部运行内存：" + RAMUtil.getTotalMemoryStr(this));
-        tv_freearm.setText("剩余运行内存：" + RAMUtil.getAvailableMemoryStr(this));
+        tv_totalram.setText("全部运行内存：" + MemoryManager.getTotalMemoryStr(this));
+        tv_freearm.setText("剩余运行内存：" + MemoryManager.getAvailableMemoryStr(this));
         //分辨率
         tv_screen.setText("屏幕分辨率：" + getScreenDisplay());
         tv_camera.setText("相机分辨率：" + getCameraDisplay());
         //基带版本
         tv_base.setText("基带版本：" + Build.VERSION.INCREMENTAL);
-        tv_root.setText("是否Root："+isRoot());
+        tv_root.setText("是否Root：" + isRoot());
     }
 
 
@@ -207,6 +207,11 @@ public class PhoneStateActivity extends BaseActivity implements View.OnClickList
         return maxSize;
     }
 
+    /**
+     * 判断手机是否Root
+     *
+     * @return
+     */
     public boolean isRoot() {
         boolean bool = false;
 
@@ -221,6 +226,7 @@ public class PhoneStateActivity extends BaseActivity implements View.OnClickList
         }
         return bool;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

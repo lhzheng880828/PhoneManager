@@ -1,13 +1,15 @@
-package com.zhuoxin.phonemanager.utils;
+package com.zhuoxin.phonemanager.biz;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Environment;
 import android.text.format.Formatter;
 
 import com.zhuoxin.phonemanager.process.ProcessManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
  * @author YoungHong
  */
 
-public class RAMUtil {
+public class MemoryManager {
 
     /**
      * 获取运行内存的信息
@@ -144,5 +146,33 @@ public class RAMUtil {
             }
         }
 
+    }
+
+    /**
+     * 获取手机内置sdcard路径, 为null表示无
+     */
+    public static String getPhoneInSDCardPath() {
+        String sdcardState = Environment.getExternalStorageState();
+        if (!sdcardState.equals(Environment.MEDIA_MOUNTED)) {
+            return null;
+        }
+        return Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
+
+    /**
+     * 获取手机外置sdcard路径, 为null表示无
+     */
+    public static String getPhoneOutSDCardPath() {
+        Map<String, String> map = System.getenv();
+        if (map.containsKey("SECONDARY_STORAGE")) {
+            String paths = map.get("SECONDARY_STORAGE");
+            // /storage/extSdCard
+            String path[] = paths.split(":");
+            if (path == null || path.length <= 0) {
+                return null;
+            }
+            return path[0];
+        }
+        return null;
     }
 }

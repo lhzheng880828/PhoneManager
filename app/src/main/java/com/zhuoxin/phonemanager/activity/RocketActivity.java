@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.adapter.ProgressAdapter;
 import com.zhuoxin.phonemanager.base.BaseActivity;
-import com.zhuoxin.phonemanager.utils.RAMUtil;
+import com.zhuoxin.phonemanager.biz.MemoryManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,15 +101,15 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
      * 获取运行空间
      */
     private void getRunMemory() {
-        pb_runspace.setProgress(RAMUtil.getUsedPercent(this));
-        tv_runspace.setText("剩余运行内存：" + RAMUtil.getAvailableMemoryStr(this) + "/" + RAMUtil.getTotalMemoryStr(this));
+        pb_runspace.setProgress(MemoryManager.getUsedPercent(this));
+        tv_runspace.setText("剩余运行内存：" + MemoryManager.getAvailableMemoryStr(this) + "/" + MemoryManager.getTotalMemoryStr(this));
     }
 
     private void asyncLoadProgress() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<ActivityManager.RunningAppProcessInfo> temp = RAMUtil.getRunningProcess(RocketActivity.this);
+                List<ActivityManager.RunningAppProcessInfo> temp = MemoryManager.getRunningProcess(RocketActivity.this);
                 Message msg = handler.obtainMessage();
                 msg.what = MSG_WHAT;
                 msg.obj = temp;
@@ -124,7 +124,7 @@ public class RocketActivity extends BaseActivity implements View.OnClickListener
         int id = v.getId();
         switch (id) {
             case R.id.btn_rocket_shift:
-                RAMUtil.cleanRunningProcess(this, getPackageName());
+                MemoryManager.cleanRunningProcess(this, getPackageName());
                 asyncLoadProgress();
                 getRunMemory();
                 break;
