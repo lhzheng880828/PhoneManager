@@ -3,6 +3,7 @@ package com.zhuoxin.phonemanager.biz;
 import android.util.Log;
 
 import com.zhuoxin.phonemanager.entity.FileInfo;
+import com.zhuoxin.phonemanager.utils.FileTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,9 +47,60 @@ public class FileManager {
      * 任意文件( 非目录) 集合
      */
     private ArrayList<FileInfo> anyFileList = new ArrayList<FileInfo>();
-    //  任意文件总大小( 在搜索过程中，实时迭加，计算总大小)
-    private long anyFileSize = 0;
+    private long anyFileSize = 0;//  任意文件总大小( 在搜索过程中，实时迭加，计算总大小)
+    /**
+     * 文档文件集合
+     */
+    private ArrayList<FileInfo> docFileList = new ArrayList<FileInfo>();
+    private long docFileSize; // 文档文件总大小(同上)
+    /**
+     * 视频文件集合
+     */
+    private ArrayList<FileInfo> videoFileList = new ArrayList<FileInfo>();
+    private long videoFileSize; // 视频文件总大小(同上)
+    /**
+     * 音乐文件集合
+     */
+    private ArrayList<FileInfo> audioFileList = new ArrayList<FileInfo>();
+    private long audioFileSize; // 音乐文件总大小(同上)
+    /**
+     * 图像文件集合
+     */
+    private ArrayList<FileInfo> imgFileList = new ArrayList<FileInfo>();
+    private long imgFileSize; // 图像文件总大小(同上)
+    /**
+     * ZIP文件集合
+     */
+    private ArrayList<FileInfo> rarFileList = new ArrayList<FileInfo>();
+    private long rarFileSize; // ZIP文件总大小(同上)
+    /**
+     * APK文件集合
+     */
+    private ArrayList<FileInfo> apkFileList = new ArrayList<FileInfo>();
+    private long apkFileSize; // APK文件总大小(同上)
+    /**
+     * 侦听回调接口
+     */
     private SearchFileListener listener;
+
+    // 初始化相关变量(在每次重新开始搜索前,如searchSDCardFile())------------------------------------------------
+    private void initData() {
+        isSearching = true;
+        anyFileSize = 0;
+        docFileSize = 0;
+        videoFileSize = 0;
+        audioFileSize = 0;
+        imgFileSize = 0;
+        rarFileSize = 0;
+        apkFileSize = 0;
+        anyFileList.clear();
+        docFileList.clear();
+        videoFileList.clear();
+        audioFileList.clear();
+        imgFileList.clear();
+        rarFileList.clear();
+        apkFileList.clear();
+    }
 
     /**
      * 搜索存储卡目录下的所有文件,结果实时保存在 {@link #anyFileList}内
@@ -57,11 +109,9 @@ public class FileManager {
         if (isSearching) {
             return;
         } else {
-            isSearching = true;
-            anyFileList.clear();
-            anyFileSize = 0;
-            searchFile(inSdcardDir, false); // 传入false标记, 不让运算反馈结束
-            searchFile(outSdcardDir, true); // 传入true标记, 让运算反馈结束
+            initData();
+            searchFile(inSdcardDir, true); // 传入false标记, 不让运算反馈结束
+            searchFile(outSdcardDir, false); // 传入true标记, 让运算反馈结束
         }
     }
 
@@ -96,10 +146,43 @@ public class FileManager {
             if (file.length() <= 0) {
                 return;
             }
-            anyFileList.add(new FileInfo(file, null, file.getName()));
+
+            //如果文件名称中没有“.”  未知文件类型
+            if (file.getName().lastIndexOf('.') == -1) {
+                return;
+            }
+            //获取图标以及文件类型
+            String[] iconAndTypeNames = FileTypeUtil.getFileIconAndTypeName(file);
+            final String iconName = iconAndTypeNames[0]; // 此文件使用什么图像(在Res中的图标文件名称)
+            final String typeName = iconAndTypeNames[1]; // 此文件是属什么类型的
+            // 添加到所有文件的集合
+            FileInfo fileInfo = new FileInfo(file, iconName, typeName);
+            anyFileList.add(fileInfo);
+            // 迭加计算总文件大小
             anyFileSize += file.length();
+            // 分类
+            if (typeName.equals(FileTypeUtil.TYPE_APK)) {
+                apkFileSize += file.length();
+                apkFileList.add(fileInfo);
+            } else if (typeName.equals(FileTypeUtil.TYPE_AUDIO)) {
+                audioFileSize += file.length();
+                audioFileList.add(fileInfo);
+            } else if (typeName.equals(FileTypeUtil.TYPE_IMAGE)) {
+                imgFileSize += file.length();
+                imgFileList.add(fileInfo);
+            } else if (typeName.equals(FileTypeUtil.TYPE_TXT)) {
+                docFileSize += file.length();
+                docFileList.add(fileInfo);
+            } else if (typeName.equals(FileTypeUtil.TYPE_VIDEO)) {
+                videoFileSize += file.length();
+                videoFileList.add(fileInfo);
+            } else if (typeName.equals(FileTypeUtil.TYPE_ZIP)) {
+                rarFileSize += file.length();
+                rarFileList.add(fileInfo);
+            }
             //  回调接口 searching  方法( 用作通知调用者数据更新了)
             callbackSearchFileListenerSearching(anyFileSize);
+            return;
         }
 
     }

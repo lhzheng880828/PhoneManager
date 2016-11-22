@@ -173,7 +173,5 @@
                     android:visibility="invisible"/>
             </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
-
 </LinearLayout>
