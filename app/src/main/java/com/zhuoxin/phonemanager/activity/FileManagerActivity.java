@@ -27,13 +27,13 @@ public class FileManagerActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tv_total.setText(Formatter.formatFileSize(FileManagerActivity.this, s));
+                    tv_total.setText("已找到：" + Formatter.formatFileSize(FileManagerActivity.this, s));
                 }
             });
         }
 
         @Override
-        public void end(boolean isExceptionEnd) {
+        public void end(boolean endFlag) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -41,7 +41,7 @@ public class FileManager {
     }
 
     //搜寻结束的标志
-    public boolean isStopSearch = false;
+    public boolean isSearching = false;
     /**
      * 任意文件( 非目录) 集合
      */
@@ -54,32 +54,22 @@ public class FileManager {
      * 搜索存储卡目录下的所有文件,结果实时保存在 {@link #anyFileList}内
      */
     public void searchSDCardFile() {
-        if (anyFileList == null || anyFileList.size() <= 0) {
+        if (isSearching) {
+            return;
+        } else {
+            isSearching = true;
             anyFileList.clear();
             anyFileSize = 0;
             searchFile(inSdcardDir, false); // 传入false标记, 不让运算反馈结束
             searchFile(outSdcardDir, true); // 传入true标记, 让运算反馈结束
-        } else {
-            // 直接回调非异常结束
-            callbackSearchFileListenerEnd(false);
         }
     }
 
     // 搜索 文件方法
-    private void searchFile(File file, boolean isFirstRunFlag) {
-        // ----中止搜索------
-        if (isStopSearch) {
-            // 是首次运行的结束(搜索结束)
-            if (isFirstRunFlag) {
-                callbackSearchFileListenerEnd(true);// 回调接口end()方法,搜索结束(异常结束)
-            }
-            return;
-        }
+    private void searchFile(File file, boolean endFlag) {
+
         //#1排除" 不正常" 文件
         if (file == null || !file.canRead() || !file.exists()) {
-            if (isFirstRunFlag) {
-                callbackSearchFileListenerEnd(true);// 回调接口end()方法,搜索结束(异常结束)
-            }
             return;
         } else if (file.isDirectory()) {
             // #2  如果是目录
@@ -95,7 +85,8 @@ public class FileManager {
             }
 
             // 是首次运行的结束(搜索结束)
-            if (isFirstRunFlag) {
+            if (endFlag) {
+                isSearching = false;
                 callbackSearchFileListenerEnd(false);// 回调接口end()方法,搜索结束，完成，非异常结束
             }
         } else {
@@ -133,9 +124,9 @@ public class FileManager {
     /**
      * 用来回调 SearchFileListener接口内方法
      */
-    private void callbackSearchFileListenerEnd(boolean isExceptionEnd) {
+    private void callbackSearchFileListenerEnd(boolean endFlag) {
         if (listener != null) {
-            listener.end(isExceptionEnd);
+            listener.end(endFlag);
         }
     }
 
@@ -148,7 +139,7 @@ public class FileManager {
         void searching(long size);
 
         //搜索结束时调用
-        void end(boolean isExceptionEnd);
+        void end(boolean endFlag);
     }
 
 }
