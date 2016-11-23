@@ -68,6 +68,8 @@
         </activity>
         <activity android:name=".activity.FileManagerActivity">
         </activity>
+        <activity android:name=".activity.FileActivity">
+        </activity>
     </application>
 
 </manifest>

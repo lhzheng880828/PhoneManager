@@ -29,10 +29,10 @@ public class ProgressAdapter extends MyBaseAdapter<ActivityManager.RunningAppPro
             convertView = layoutInflater.inflate(R.layout.item_software, null);
             holder = new ViewHolder();
             holder.cb_delete = (CheckBox) convertView.findViewById(R.id.cb_delete);
-            holder.iv_appicon = (ImageView) convertView.findViewById(R.id.iv_appicon);
-            holder.tv_appname = (TextView) convertView.findViewById(R.id.tv_appname);
+            holder.iv_appicon = (ImageView) convertView.findViewById(R.id.iv_fileIcon);
+            holder.tv_appname = (TextView) convertView.findViewById(R.id.tv_fileName);
             holder.tv_appversion = (TextView) convertView.findViewById(R.id.tv_appversion);
-            holder.tv_packagename = (TextView) convertView.findViewById(R.id.tv_packagename);
+            holder.tv_packagename = (TextView) convertView.findViewById(R.id.tv_fileType);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

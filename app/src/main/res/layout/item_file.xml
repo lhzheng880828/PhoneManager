@@ -2,8 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_background_gray"
-                android:clickable="true"
                 android:paddingBottom="5dp"
                 android:paddingEnd="@dimen/item_margin"
                 android:paddingStart="@dimen/item_margin"
@@ -11,11 +9,11 @@
     >
 
     <CheckBox
-        android:id="@+id/cb_delete"
+        android:id="@+id/cb_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        />
+        android:focusable="false"/>
 
     <ImageView
         android:id="@+id/iv_fileIcon"
@@ -23,39 +21,22 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/item_margin"
-        android:layout_toEndOf="@id/cb_delete"
+        android:layout_toEndOf="@id/cb_file"
         android:src="@mipmap/ic_launcher"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+
+        android:id="@+id/tv_fileName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin"
         android:layout_toEndOf="@id/iv_fileIcon"
-        android:orientation="horizontal">
-
-        <TextView
-
-            android:id="@+id/tv_fileName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_margin"
-            android:layout_weight="7"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="QQ"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/tv_appversion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_margin"
-            android:layout_weight="3"
-            android:ellipsize="end"
-            android:gravity="right"
-            android:maxLines="1"
-            android:text="6.0.1"
-            android:textSize="12sp"/>
-    </LinearLayout>
+        android:layout_weight="7"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="FirstLove.mp3"
+        android:textSize="18sp"/>
 
 
     <TextView
@@ -68,7 +49,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="10086"
+        android:text="音频"
         android:textSize="12sp"/>
 
 

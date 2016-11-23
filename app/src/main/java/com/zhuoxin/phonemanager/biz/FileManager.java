@@ -22,10 +22,13 @@ public class FileManager {
      * 内置存储卡目录( 可能为 null)
      */
     public static File inSdcardDir = null;
+
+    ;
     /**
      * 外置存储卡目录( 可能为 null)
      */
     public static File outSdcardDir = null;
+    private static FileManager fileManager = new FileManager();
 
     static {
         //如果有手机内置 sdcard  卡路径, 进行内置 File  实例化( 防止 File file =new File(null))
@@ -82,6 +85,12 @@ public class FileManager {
      * 侦听回调接口
      */
     private SearchFileListener listener;
+    private FileManager() {
+    }
+
+    public static FileManager getFileManager() {
+        return fileManager;
+    }
 
     // 初始化相关变量(在每次重新开始搜索前,如searchSDCardFile())------------------------------------------------
     private void initData() {
@@ -213,6 +222,37 @@ public class FileManager {
         }
     }
 
+    public ArrayList<FileInfo> getAnyFileList() {
+        return anyFileList;
+    }
+
+    public ArrayList<FileInfo> getDocFileList() {
+        return docFileList;
+    }
+
+    public ArrayList<FileInfo> getVideoFileList() {
+        return videoFileList;
+    }
+
+    public ArrayList<FileInfo> getAudioFileList() {
+        return audioFileList;
+    }
+
+    public ArrayList<FileInfo> getImgFileList() {
+        return imgFileList;
+    }
+
+    public ArrayList<FileInfo> getRarFileList() {
+        return rarFileList;
+    }
+
+    public ArrayList<FileInfo> getApkFileList() {
+        return apkFileList;
+    }
+
+    public long getRarFileSize() {
+        return rarFileSize;
+    }
 
     /**
      * 搜索过程的监听{@link#setSearchFileListener(SearchFileListener listener)}
@@ -224,5 +264,4 @@ public class FileManager {
         //搜索结束时调用
         void end(boolean endFlag);
     }
-
 }
