@@ -16,5 +16,16 @@
     <ListView
         android:id="@+id/lv_file"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="0dp"
+        android:layout_weight="1"></ListView>
+
+    <Button
+        android:id="@+id/btn_file_delete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_button_blue"
+        android:text="删除选定的文件"
+        android:textColor="#fff"
+        android:textSize="@dimen/item_textsize"/>
 </LinearLayout>

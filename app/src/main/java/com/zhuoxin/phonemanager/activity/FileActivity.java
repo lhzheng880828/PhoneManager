@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.zhuoxin.phonemanager.R;
@@ -15,6 +16,7 @@ import com.zhuoxin.phonemanager.entity.FileInfo;
 import com.zhuoxin.phonemanager.utils.FileTypeUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ public class FileActivity extends BaseActivity {
     String fileType;
     ListView lv_file;
     FileAdapter adapter;
-
+    Button btn_file_delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class FileActivity extends BaseActivity {
             }
         });
         lv_file = (ListView) findViewById(R.id.lv_file);
+        btn_file_delete = (Button) findViewById(R.id.btn_file_delete);
         adapter = new FileAdapter(this);
         adapter.setData(getFileList(fileType));
         lv_file.setAdapter(adapter);
@@ -53,6 +56,25 @@ public class FileActivity extends BaseActivity {
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file), type);
                 startActivity(intent);
+            }
+        });
+
+        btn_file_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<FileInfo> tempList = new ArrayList<FileInfo>();
+                tempList.addAll(adapter.getData());
+                for (FileInfo info : tempList) {
+                    if (info.isSelect()) {
+                        adapter.getData().remove(info);
+                        FileManager.getFileManager().getAnyFileList().remove(info);
+                        FileManager.getFileManager().getAudioFileList().remove(info);
+                        long size = FileManager.getFileManager().getAnyFileSize();
+                        FileManager.getFileManager().setAnyFileSize(size -= info.getFile().length());
+                        info.getFile().delete();
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -81,11 +103,8 @@ public class FileActivity extends BaseActivity {
 
             case "apk文件":
                 return FileManager.getFileManager().getApkFileList();
-
-
             default:
                 return FileManager.getFileManager().getAnyFileList();
-
         }
     }
 }

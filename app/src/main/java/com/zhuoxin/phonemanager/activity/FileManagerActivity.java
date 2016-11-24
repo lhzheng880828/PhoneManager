@@ -70,6 +70,12 @@ public class FileManagerActivity extends BaseActivity implements View.OnClickLis
         asyncLoadData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tv_total.setText("已找到：" + Formatter.formatFileSize(FileManagerActivity.this, FileManager.getFileManager().getAnyFileSize()));
+    }
+
     private void asyncLoadData() {
         fileManager.setSearchFileListener(searchFileListener);
         new Thread(new Runnable() {

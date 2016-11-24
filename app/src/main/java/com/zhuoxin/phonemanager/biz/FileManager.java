@@ -250,6 +250,14 @@ public class FileManager {
         return apkFileList;
     }
 
+    public long getAnyFileSize() {
+        return anyFileSize;
+    }
+
+    public void setAnyFileSize(long anyFileSize) {
+        this.anyFileSize = anyFileSize;
+    }
+
     public long getRarFileSize() {
         return rarFileSize;
     }
