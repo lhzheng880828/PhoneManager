@@ -1,6 +1,8 @@
 package com.zhuoxin.phonemanager.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.base.MyBaseAdapter;
 import com.zhuoxin.phonemanager.entity.FileInfo;
+import com.zhuoxin.phonemanager.utils.FileTypeUtil;
 
 /**
  * Created by YoungHong on 2016/11/24.
@@ -45,9 +48,43 @@ public class FileAdapter extends MyBaseAdapter<FileInfo> {
         });
         viewHolder.cb_file.setChecked(getItem(position).isSelect());
         //图标
+        int width = 80;
+        viewHolder.iv_fileIcon.setImageBitmap(getBitmap(getItem(position), width));
         viewHolder.tv_fileName.setText(getItem(position).getFile().getName());
         viewHolder.tv_fileType.setText(getItem(position).getFileType());
         return convertView;
+    }
+
+    /**
+     * 根据文件类型获取文件的图标，并对图片的缩放率进行设置
+     *
+     * @param fileInfo
+     * @param width
+     * @return
+     */
+    private Bitmap getBitmap(FileInfo fileInfo, int width) {
+        //创建Bitmap位图，获取图标
+        Bitmap bitmap = null;
+        //图片资源
+        if (fileInfo.getFileType().equals(FileTypeUtil.TYPE_IMAGE)) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            //把图片信息保存在option里面
+            BitmapFactory.decodeFile(fileInfo.getFile().getAbsolutePath(), options);
+            //计算缩放率并设置缩放率
+            int scale = options.outWidth > options.outHeight ? options.outWidth : options.outHeight;
+            scale = scale / width;
+            options.inSampleSize = scale;
+            options.inJustDecodeBounds = false;
+            bitmap = BitmapFactory.decodeFile(fileInfo.getFile().getAbsolutePath(), options);
+
+        } else {
+            int icon = context.getResources().getIdentifier( fileInfo.getIconName(), "drawable",context.getPackageName());
+            bitmap = BitmapFactory.decodeResource(context.getResources(), icon);
+        }
+
+        return bitmap;
+
     }
 
     static class ViewHolder {

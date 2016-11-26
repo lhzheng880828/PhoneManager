@@ -466,7 +466,7 @@ public class FileTypeUtil {
         String[] iconAndTypes = new String[2];
         // 首先设置默认文件图标以及类型
         iconAndTypes[0] = "icon_file";
-        iconAndTypes[1] = "*/*";
+        iconAndTypes[1] = "未知文件类型";
         if (file.isFile()) {
             // 根据文件名称进行判断
             String name = file.getName();

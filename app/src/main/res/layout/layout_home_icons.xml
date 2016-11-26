@@ -52,7 +52,7 @@
         <TextView
             android:id="@+id/tv_file"
             style="@style/HomeIconsSStyle"
-            android:drawableTop="@drawable/icon_file"
+            android:drawableTop="@drawable/icon_filemgr"
             android:text="文件管理"/>
     </LinearLayout>
 
