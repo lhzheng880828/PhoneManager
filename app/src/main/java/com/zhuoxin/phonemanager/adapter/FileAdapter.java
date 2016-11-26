@@ -15,11 +15,16 @@ import com.zhuoxin.phonemanager.base.MyBaseAdapter;
 import com.zhuoxin.phonemanager.entity.FileInfo;
 import com.zhuoxin.phonemanager.utils.FileTypeUtil;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+
 /**
  * Created by YoungHong on 2016/11/24.
  */
 
 public class FileAdapter extends MyBaseAdapter<FileInfo> {
+    HashMap<String, SoftReference<Bitmap>> bitmapCache = new HashMap<String, SoftReference<Bitmap>>();
+
     public FileAdapter(Context context) {
         super(context);
     }
@@ -49,7 +54,15 @@ public class FileAdapter extends MyBaseAdapter<FileInfo> {
         viewHolder.cb_file.setChecked(getItem(position).isSelect());
         //图标
         int width = 80;
-        viewHolder.iv_fileIcon.setImageBitmap(getBitmap(getItem(position), width));
+        Bitmap bitmap = null;
+        //去软引用，如果软引用为空，则重新加载。
+        SoftReference<Bitmap> reference = bitmapCache.get(getItem(position));
+        if (reference == null) {
+            bitmap = getBitmap(getItem(position), width);
+        } else {
+            bitmap = reference.get();
+        }
+        viewHolder.iv_fileIcon.setImageBitmap(bitmap);
         viewHolder.tv_fileName.setText(getItem(position).getFile().getName());
         viewHolder.tv_fileType.setText(getItem(position).getFileType());
         return convertView;
@@ -79,10 +92,10 @@ public class FileAdapter extends MyBaseAdapter<FileInfo> {
             bitmap = BitmapFactory.decodeFile(fileInfo.getFile().getAbsolutePath(), options);
 
         } else {
-            int icon = context.getResources().getIdentifier( fileInfo.getIconName(), "drawable",context.getPackageName());
+            int icon = context.getResources().getIdentifier(fileInfo.getIconName(), "drawable", context.getPackageName());
             bitmap = BitmapFactory.decodeResource(context.getResources(), icon);
         }
-
+        bitmapCache.put(fileInfo.getFile().getName(), new SoftReference<Bitmap>(bitmap));
         return bitmap;
 
     }
