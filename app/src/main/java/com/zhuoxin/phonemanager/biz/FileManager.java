@@ -85,6 +85,7 @@ public class FileManager {
      * 侦听回调接口
      */
     private SearchFileListener listener;
+
     private FileManager() {
     }
 
@@ -261,6 +262,31 @@ public class FileManager {
     public long getRarFileSize() {
         return rarFileSize;
     }
+
+    /**
+     * 删除文件
+     *
+     * @param file
+     */
+    public void deleteFile(File file) {
+        //如果是文件夹
+        if (file.isDirectory()) {
+            File fileList[] = file.listFiles();
+            //如果文件夹中没有其他的内容，则直接删除并返回
+            if (fileList == null || fileList.length <= 0) {
+                file.delete();
+                return;
+            }
+            //如果有数据，则递归调用
+            for (File f : fileList) {
+                deleteFile(f);
+            }
+
+        } else {
+            file.delete();
+        }
+    }
+
 
     /**
      * 搜索过程的监听{@link#setSearchFileListener(SearchFileListener listener)}

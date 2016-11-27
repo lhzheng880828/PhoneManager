@@ -59,6 +59,12 @@ public class DBManager {
 
     }
 
+    /**
+     * 判断是否存在数据库文件
+     *
+     * @param context
+     * @return
+     */
     public static boolean isExistsTeldbFile(Context context) {
         File file = new File(context.getFilesDir(), "commonnum.db");
         if (file.exists()) {
@@ -68,6 +74,12 @@ public class DBManager {
         }
     }
 
+    /**
+     * 读取数据库TelClass中的信息
+     *
+     * @param context
+     * @return
+     */
     public static List<TelclassInfo> readTeldbClasslist(Context context) {
         List<TelclassInfo> telclassInfos = new ArrayList<TelclassInfo>();
         File sqlFile = new File(context.getFilesDir(), "commonnum.db");
@@ -110,5 +122,26 @@ public class DBManager {
             }
         }
         return telnumberInfos;
+    }
+
+    /**
+     * 获取所有文件的地址
+     *
+     * @param context
+     * @param tableName
+     * @return
+     */
+    public static List<String> getFilePath(Context context) {
+        List<String> filePath = new ArrayList<String>();
+        File sqlFile = new File(context.getFilesDir(), "clearpath.db");
+        if (sqlFile.exists()) {
+            SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(sqlFile, null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM softdetail", null);
+            while (cursor.moveToNext()) {
+                String path = cursor.getString(cursor.getColumnIndex("filepath"));
+                filePath.add(path);
+            }
+        }
+        return filePath;
     }
 }

@@ -3,11 +3,11 @@ package com.zhuoxin.phonemanager.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhuoxin.phonemanager.R;
 import com.zhuoxin.phonemanager.base.BaseActivity;
 import com.zhuoxin.phonemanager.biz.MemoryManager;
+import com.zhuoxin.phonemanager.db.DBManager;
 import com.zhuoxin.phonemanager.view.CleanCircleView;
 
 import java.io.File;
@@ -80,8 +80,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(FileManagerActivity.class);
                 break;
             case R.id.tv_clean:
-                File file = new File(MemoryManager.getPhoneInSDCardPath());
-                Toast.makeText(this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                DBManager.copyAssetsFileToSDCardFile(this, "clearpath.db", new File(this.getFilesDir() ,"clearpath.db"));
+                startActivity(CleanActivity.class);
                 break;
         }
     }
