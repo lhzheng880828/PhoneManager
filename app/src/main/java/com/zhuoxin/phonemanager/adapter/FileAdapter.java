@@ -3,6 +3,7 @@ package com.zhuoxin.phonemanager.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.LruCache;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -24,7 +25,12 @@ import java.util.HashMap;
 
 public class FileAdapter extends MyBaseAdapter<FileInfo> {
     HashMap<String, SoftReference<Bitmap>> bitmapCache = new HashMap<String, SoftReference<Bitmap>>();
-
+    LruCache<String,Bitmap> bitmapLruCache = new LruCache<String, Bitmap>(1024*1024){
+        @Override
+        protected int sizeOf(String key, Bitmap value) {
+            return value.getHeight()*value.getRowBytes();
+        }
+    };
     public FileAdapter(Context context) {
         super(context);
     }
