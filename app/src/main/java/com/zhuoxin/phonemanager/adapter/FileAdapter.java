@@ -24,15 +24,31 @@ import java.util.HashMap;
  */
 
 public class FileAdapter extends MyBaseAdapter<FileInfo> {
+    private static final int LRUCACHE_SIZE = (int) (Runtime.getRuntime().maxMemory() / 8192);
     HashMap<String, SoftReference<Bitmap>> bitmapCache = new HashMap<String, SoftReference<Bitmap>>();
-    LruCache<String,Bitmap> bitmapLruCache = new LruCache<String, Bitmap>(1024*1024){
+    LruCache<String, Bitmap> bitmapLruCache = new LruCache<String, Bitmap>(LRUCACHE_SIZE) {
         @Override
         protected int sizeOf(String key, Bitmap value) {
-            return value.getHeight()*value.getRowBytes();
+            return value.getHeight() * value.getRowBytes();
         }
     };
+
     public FileAdapter(Context context) {
         super(context);
+    }
+
+
+    private Bitmap getBitmapFromLruCache(FileInfo fileInfo) {
+        Bitmap bitmap = bitmapLruCache.get(fileInfo.getFile().getName());
+        if (bitmap == null) {
+            bitmap = getBitmap(fileInfo, 80);
+            if(bitmap!=null){
+                bitmapLruCache.put(fileInfo.getFile().getName(),bitmap);
+            }else{
+                bitmapLruCache.put(fileInfo.getFile().getName(),BitmapFactory.decodeResource(context.getResources(),R.drawable.item_arrow_right));
+            }
+        }
+        return bitmap ;
     }
 
     @Override
@@ -59,15 +75,7 @@ public class FileAdapter extends MyBaseAdapter<FileInfo> {
         });
         viewHolder.cb_file.setChecked(getItem(position).isSelect());
         //图标
-        int width = 80;
-        Bitmap bitmap = null;
-        //去软引用，如果软引用为空，则重新加载。
-        SoftReference<Bitmap> reference = bitmapCache.get(getItem(position));
-        if (reference == null) {
-            bitmap = getBitmap(getItem(position), width);
-        } else {
-            bitmap = reference.get();
-        }
+        Bitmap bitmap = getBitmapFromLruCache(getItem(position));
         viewHolder.iv_fileIcon.setImageBitmap(bitmap);
         viewHolder.tv_fileName.setText(getItem(position).getFile().getName());
         viewHolder.tv_fileType.setText(getItem(position).getFileType());

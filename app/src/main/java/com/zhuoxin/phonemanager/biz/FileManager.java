@@ -281,6 +281,8 @@ public class FileManager {
             for (File f : fileList) {
                 deleteFile(f);
             }
+            //如果文件夹中的内容都清空了，把这个文件夹删除
+            file.delete();
 
         } else {
             file.delete();
