@@ -29,7 +29,6 @@ public class CleanActivity extends BaseActivity {
     ListView lv_clean;
     @InjectView(R.id.btn_clean_delete)
     Button btn_clean_delete;
-    //数据
     FileAdapter fileAdapter;
 
 
